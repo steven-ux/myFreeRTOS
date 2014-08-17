@@ -8,30 +8,32 @@
 #include <stdlib.h>
 #include <string.h>
 
+// 1.  change global variable to static global
+
 //Player1
-int16_t player1X = 10;
-int16_t player1Y = 10;
-uint16_t player1W = 60;
-uint16_t player1H = 10;
-uint8_t player1IsReversed = 1;
+static int16_t player1X = 10;
+static int16_t player1Y = 10;
+static uint16_t player1W = 60;
+static uint16_t player1H = 10;
+static uint8_t player1IsReversed = 1;
 
 //Player2
-int16_t player2X = LCD_PIXEL_WIDTH - 20;
-int16_t player2Y = LCD_PIXEL_HEIGHT - 20;
-uint16_t player2W = 60;
-uint16_t player2H = 10;
-uint8_t player2IsReversed = 0;
+static int16_t player2X = LCD_PIXEL_WIDTH - 20;
+static int16_t player2Y = LCD_PIXEL_HEIGHT - 20;
+static uint16_t player2W = 60;
+static uint16_t player2H = 10;
+static uint8_t player2IsReversed = 0;
 
 //Ball
-uint16_t ballSize = 5;
-int16_t ballX = ( LCD_PIXEL_WIDTH - 5 ) / 2;
-int16_t ballY = ( LCD_PIXEL_HEIGHT - 5 ) / 2;
-int16_t ballVX = 5;
-int16_t ballVY = 5;
-uint8_t ballIsRun = 0;
+static uint16_t ballSize = 5;
+static int16_t ballX = ( LCD_PIXEL_WIDTH - 5 ) / 2;
+static int16_t ballY = ( LCD_PIXEL_HEIGHT - 5 ) / 2;
+static int16_t ballVX = 5;
+static int16_t ballVY = 5;
+static uint8_t ballIsRun = 0;
 
 //Mode
-uint8_t demoMode = 0;
+static uint8_t demoMode = 0;
 
 void
 BallReset()
@@ -298,7 +300,7 @@ GAME_Update()
     }
 }
 
-    void
+void
 GAME_Render()
 {
     LCD_SetTextColor( LCD_COLOR_WHITE );

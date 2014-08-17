@@ -1,19 +1,19 @@
 #ifndef GAME_H
 #define GAME_H
 
-void
+extern void
 EventHandler1();
 
-void
+extern void
 EventHandler2();
 
-void
+extern void
 EventHandler3();
 
-void
+extern void
 GAME_Update();
 
-void
+extern void
 GAME_Render();
 
 #endif
