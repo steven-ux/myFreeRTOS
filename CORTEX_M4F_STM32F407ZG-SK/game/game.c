@@ -33,7 +33,7 @@ static int16_t ballVY = 5;
 static uint8_t ballIsRun = 0;
 
 //Mode
-static uint8_t demoMode = 0;
+uint8_t demoMode = 0;
 
 void
 BallReset()

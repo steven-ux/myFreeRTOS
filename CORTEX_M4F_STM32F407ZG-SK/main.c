@@ -27,7 +27,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "game.h"
+#include "game/game.h"
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -43,7 +43,6 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-extern uint8_t demoMode;
 
 void
 prvInit()
