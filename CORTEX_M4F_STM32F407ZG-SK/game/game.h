@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+extern void GAME_init();
+
 extern void
 EventHandler1();
 

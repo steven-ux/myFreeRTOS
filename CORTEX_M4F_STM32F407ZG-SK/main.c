@@ -47,66 +47,75 @@
 void
 prvInit()
 {
-	//LCD init
-	LCD_Init();
-	IOE_Config();
-	LTDC_Cmd( ENABLE );
+    //LCD init
+    LCD_Init();
+    IOE_Config();
+    LTDC_Cmd( ENABLE );
 
-	LCD_LayerInit();
-	LCD_SetLayer( LCD_FOREGROUND_LAYER );
-	LCD_Clear( LCD_COLOR_BLACK );
-	LCD_SetTextColor( LCD_COLOR_WHITE );
+    LCD_LayerInit();
+    LCD_SetLayer( LCD_FOREGROUND_LAYER );
+    LCD_Clear( LCD_COLOR_BLACK );
+    LCD_SetTextColor( LCD_COLOR_WHITE );
 
-	//Button
-	STM_EVAL_PBInit( BUTTON_USER, BUTTON_MODE_GPIO );
+    //Button
+    STM_EVAL_PBInit( BUTTON_USER, BUTTON_MODE_GPIO );
 
-	//LED
-	STM_EVAL_LEDInit( LED3 );
+    //LED
+    STM_EVAL_LEDInit( LED3 );
+
+    // init for usart
+    RCC_Configuration();
+    GPIO_Configuration();
+    USART1_Configuration();
+
+    GAME_init();
+
+    USART1_puts("prvInit: init finish!");
 }
 
 static void GameEventTask1( void *pvParameters )
 {
-	while( 1 ){
-		GAME_EventHandler1();
-	}
+    while( 1 ){
+        GAME_EventHandler1();
+    }
 }
 
 static void GameEventTask2( void *pvParameters )
 {
-	while( 1 ){
-		GAME_EventHandler2();
-	}
+    while( 1 ){
+        GAME_EventHandler2();
+    }
 }
 
 static void GameEventTask3( void *pvParameters )
 {
-	while( 1 ){
-		GAME_EventHandler3();
-	}
+    while( 1 ){
+        GAME_EventHandler3();
+    }
 }
 
 static void GameTask( void *pvParameters )
 {
-	while( 1 ){
-		GAME_Update();
-		GAME_Render();
-		vTaskDelay( 10 );
-	}
+    while( 1 ){
+        GAME_Update();
+        GAME_Render();
+        vTaskDelay( 10 );
+    }
 }
 
 //Main Function
 int main(void)
 {
-	prvInit();
+    prvInit();
 
-	if( STM_EVAL_PBGetState( BUTTON_USER ) )
-		demoMode = 1;
+    if( STM_EVAL_PBGetState( BUTTON_USER ) )
+        demoMode = 1;
 
-	xTaskCreate( GameTask, (signed char*) "GameTask", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
-	xTaskCreate( GameEventTask1, (signed char*) "GameEventTask1", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
-	xTaskCreate( GameEventTask2, (signed char*) "GameEventTask2", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
-	xTaskCreate( GameEventTask3, (signed char*) "GameEventTask3", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
+    xTaskCreate( GameTask, (signed char*) "GameTask", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
+    xTaskCreate( GameEventTask1, (signed char*) "GameEventTask1", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
+    xTaskCreate( GameEventTask2, (signed char*) "GameEventTask2", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
+    xTaskCreate( GameEventTask3, (signed char*) "GameEventTask3", 128, NULL, tskIDLE_PRIORITY + 1, NULL );
 
-	//Call Scheduler
-	vTaskStartScheduler();
+    //Call Scheduler
+    vTaskStartScheduler();
 }
