@@ -68,8 +68,11 @@ prvInit()
     GPIO_Configuration();
     USART1_Configuration();
 
+<<<<<<< HEAD
     GAME_init();
 
+=======
+>>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
     USART1_puts("prvInit: init finish!");
 }
 
