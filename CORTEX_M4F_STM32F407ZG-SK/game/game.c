@@ -10,33 +10,20 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-<<<<<<< HEAD
 #define BALL_SIZE 5
 
-=======
->>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
 //== non-exported struct & function declaration =======
 
 // Point
 typedef struct {
-<<<<<<< HEAD
     int16_t x;
     int16_t y;
-=======
-    int x;
-    int y;
->>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
 } _Point;
 
 // Size
 typedef struct {
-<<<<<<< HEAD
     uint16_t width;
     uint16_t height;
-=======
-    int width;
-    int height;
->>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
 } _Size;
 
 // Rectangle Region
@@ -45,34 +32,16 @@ typedef struct {
     _Size  size;
 } _RectRegion;
 
-<<<<<<< HEAD
 static void _Point_add(_Point*, _Size*);
-=======
->>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
 
 // determines whether the RectRegion contains the Point
 static bool _RectRegion_contains(_RectRegion*, _Point*);
 
-<<<<<<< HEAD
 // _RectRegion::getX2()
 static int16_t _Rect_getX2(_RectRegion*);
 
 // _RectRegion::getY2()
 static int16_t _Rect_getY2(_RectRegion*);
-=======
-// common code2
-static void _f2(uint16_t playerX, uint16_t playerY, uint16_t playerW, uint16_t playerH);
-
-// common code1
-static void _f1();
-
-static void BallReset(); 
-
-//== static global variable ============================
->>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
-
-// draw Rectangle by RectRegion
-static void _draw_Rect(_RectRegion*);
 
 // common code2
 static void _f2(uint16_t playerX, uint16_t playerY, uint16_t playerW, uint16_t playerH);
@@ -102,8 +71,6 @@ static _RectRegion rect_game;
 uint8_t demoMode = 0;
 
 //== static function difinition ========================
-<<<<<<< HEAD
-=======
 
 static bool _Rect_contains(_RectRegion* rect, _Point* point) {
     if( point->x > (rect->loc.x + rect->size.width) ) return false;
@@ -184,12 +151,6 @@ static void _f1() {
         }
 }
 
-static void BallReset()
-{
-    ballX = ( LCD_PIXEL_WIDTH - 5 ) / 2;
-    ballY = ( LCD_PIXEL_HEIGHT - 5 ) / 2;
->>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
-
 static void _Point_add(_Point* loc, _Size* size) {
     loc->x += size->width;
     loc->y += size->height;
@@ -203,7 +164,6 @@ static bool _Rect_contains(_RectRegion* rect, _Point* point) {
     return true;
 }
 
-<<<<<<< HEAD
 static int16_t _Rect_getX2(_RectRegion* rect) {
     return rect->loc.x + rect->size.width - 1;
 }
@@ -219,71 +179,6 @@ static void _draw_Rect(_RectRegion* rect) {
         rect->size.width, 
         rect->size.height
     );
-}
-
-static void _f2(uint16_t playerX, uint16_t playerY, uint16_t playerW, uint16_t playerH) {
-    
-    if( ballX - ballSize <= playerY + playerW/4 ){
-        ballVY =-3;
-        ballVX =-7;
-    } else if( ballX >= playerY + playerW - playerW/4 ){
-        ballVY =-3;
-        ballVX = 7;
-    } else if( ballX + ballSize < playerY + playerW/2 ){
-        ballVY =-7;
-        ballVX =-3;
-    } else if( ballX > playerY + playerW/2 ){
-        ballVY =-7;
-        ballVX = 3;
-    } else {
-        ballVY =-9;
-        ballVX = 0;
-    }
-}
-
-static void _f1() {
-        //Ball
-        if( ballIsRun == 1 ){
-
-            LCD_SetTextColor( LCD_COLOR_BLACK );
-            _draw_Rect(&rect_ball);
-
-           _Point_add(&rect_ball.loc, &vector_ball);
-           
-            
-
-            //Touch wall
-            ballX += ballVX;
-            if( ballX <= 0 ){
-                ballX = 0;
-                ballVX *= -1;
-            } else if( ballX + ballSize >= LCD_PIXEL_WIDTH ){
-                ballX = LCD_PIXEL_WIDTH - ballSize;
-                ballVX *= -1;
-            }
-
-            //PONG!
-            ballY += ballVY;
-            if( ballY + ballSize >= player2Y ){
-                if( ballX + ballSize >= player2X && ballX <= player2X + player2W ){
-                    
-                    _f2(player2X, player2Y, player2W, player2H);
-
-                } else {
-                    BallReset();
-                }
-            }
-
-            if( ballY <= player1Y + player1H ){
-                if( ballX + ballSize >= player1X && ballX <= player1X + player1W ){
-                    
-                    _f2(player1X, player1Y, player1W, player1H);
-                    
-                } else {
-                    BallReset();
-                }
-            }
-        }
 }
 
 static void _GAME_reset() {
@@ -343,14 +238,6 @@ static void _GAME_reset() {
 
 void GAME_init() {
     _GAME_reset();
-}
-
-=======
-//== exported function difinition ======================
-
->>>>>>> b29ca1a7343da948fa0a3c570eb3d5a6bb0fc920
-void game_test1() {
-    _f2(0,0,0,0);
 }
 
 void GAME_EventHandler1()
